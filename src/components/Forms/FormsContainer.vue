@@ -1,12 +1,16 @@
 <template>
   <div id="form-container">
     <name-form />
+    <contact-form/>
+    <skill-form/>
   </div>
 </template>
 <script>
 import NameForm from "../Forms/NameForm.vue";
+import ContactForm from "../Forms/ContactForm.vue";
+import SkillForm from "../Forms/SkillForm.vue"
 export default {
-  components: { NameForm },
+  components: { NameForm,ContactForm,SkillForm },
   data() {
     return {};
   },

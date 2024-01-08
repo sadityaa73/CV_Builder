@@ -76,7 +76,7 @@ export default {
 .input {
   border-radius: 7px;
   width: 100%;
-  height: 100%;
+  height: 83%;
   margin: 3px 2px 2px 2px;
   display: flex;
   justify-content: center;
@@ -85,6 +85,10 @@ export default {
   font-size: 16px;
   font-family: 'Playpen Sans';
   color: black;
+  transition:all 0.4s;
+}
+.input:hover{
+  box-shadow: 1px 10px 22px 4px grey;
 }
 .button-div {
   margin: 7px;
