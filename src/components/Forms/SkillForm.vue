@@ -9,14 +9,14 @@
           placeholder="Add Your Skill."
           v-model="skills"
           class="skill-details"
-        />
+        @keyup.enter="add"/>
       </div>
       <button class="add-btn" @click="add">
         <span><img src="../../assets/add_icon.png" alt="Add" /></span>Add
       </button>
     </div>
     <div class="skill-bucket-div">
-        <div class="skill-bucket" v-for="(skillList,index) in skillList" :key="index">
+        <div class="skill-bucket" v-for="(skillList,index) in skillList" :key=index>
          <p class="skill-list">{{skillList}}</p><span @click="close(index)"><img src="../../assets/cross_icon.png" alt="cross" style="height: 14px;
             width: 15px;"/></span>
         </div>
@@ -51,14 +51,20 @@ export default {
     },
     close(index)
     {
-        console.log("printing index",index);
        for(let i=0;i<=this.skillList.length-1;i++)
        {
-          if ( this.skillList[i] === index)
+          if ( i === index)
           {
-             this.skillList.pop();
+            let k = i;
+             while(k<this.skillList.length)
+             {
+                this.skillList[k] = this.skillList[k+1];
+                k++;
+             }
           }
        }
+       if(this.skillList.length >0)
+       {this.skillList.length--;}
     },
     next(){}
   },
@@ -77,7 +83,7 @@ export default {
 }
 .heading {
   font-size: 20px;
-  font-family: Playpen sans;
+  font-family: 'Playpen sans';
 }
 .skill-detail-container {
   height: 116px;
