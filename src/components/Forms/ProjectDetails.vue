@@ -3,15 +3,14 @@
     <div class="heading-div">
       <h3 class="heading">Add Your Works/Project Details.</h3>
     </div>
-    <div class="skill-detail-container">
-      <div class="skill-details-div">
+    <div class="project-detail-container">
+      <div class="project-details-div">
         <span><img src="../../assets/works.png" alt="work" /></span>
         <input
           type="text"
           placeholder="Name Of Your Project/Works."
-          v-model="skills"
-          class="skill-details"
-          @keyup.enter="add"
+          v-model="projectName"
+          class="project-details"
         />
       </div>
     </div>
@@ -21,6 +20,7 @@
           name="decription"
           id="description"
           placeholder="Explain Your Project/Work... "
+          v-model="description"
           cols="30"
           rows="10"
         ></textarea>
@@ -30,8 +30,8 @@
       <span><img src="../../assets/add_icon.png" alt="Add" /></span>Add
     </button>
     <div class="skill-bucket-div">
-      <div class="project-bucket">
-          <p class="project-list">project.</p>
+      <div class="project-bucket" v-for="(project,index) in projectDetails" :key="index">
+          <p class="project-list">{{project.projectHeading}}</p>
           <span @click="close(index)"
             ><img
               src="../../assets/cross_icon.png"
@@ -49,9 +49,46 @@
 export default {
   components: {},
   data() {
-    return {};
+    return {
+      projectName:"",
+      description:"",
+      projectDetails:[]
+    };
   },
-  methods: {},
+  methods: {
+    add(){
+      let projectName = document.querySelector(".project-details");
+      let description = document.querySelector("#description");
+      if(projectName.value==="")
+      {
+        projectName.style.border="2px solid red";
+      }
+      else{
+        projectName.style.border="2px solid green";
+      }
+      if(description.value==="")
+      {
+        description.style.border="2px solid red";
+      }
+      else{
+        description.style.border="2px solid green";
+      }
+      if(projectName.value===""||description.value==="")
+      {
+        return;
+      }else
+      {
+        let workDetails={
+          projectHeading:this.projectName,
+          aboutProject:this.description
+        }
+        this.projectDetails.push(workDetails);
+        this.projectName="";
+        this.description="";
+        console.log("printing projectDetails",this.projectDetails);
+      }
+    }
+  },
 };
 </script>
 <style scoped>
@@ -69,7 +106,7 @@ export default {
   font-size: 20px;
   font-family: "Playpen sans";
 }
-.skill-detail-container {
+.project-detail-container {
   height: 64px;
   width: 281px;
   display: flex;
@@ -77,7 +114,7 @@ export default {
   align-items: center;
   flex-direction: column;
 }
-.skill-details-div {
+.project-details-div {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,7 +125,7 @@ span {
   justify-content: center;
   align-items: center;
 }
-.skill-details {
+.project-details {
   border-radius: 7px;
   width: 100%;
   height: 100%;
@@ -102,7 +139,7 @@ span {
   color: black;
   transition: all 0.4s;
 }
-.skill-details:hover {
+.project-details:hover {
   box-shadow: 1px 10px 22px 4px grey;
 }
 .add-btn {

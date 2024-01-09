@@ -1,13 +1,32 @@
-
 <template>
   <div id="form-div">
+    <div class="heading-div">
+      <h3 class="heading"></h3>
+    </div>
+    <div class="dp-div">
+      <div class="uploaded-image">
+        <img src="" alt="image" class="output"/>
+      </div>
+      <input type="file" accept="image/*" class="upload-dp" placeholder="Upload Image" @change="getImage($event)"/>
+    </div>
     <div class="input-container">
-        <div class="input-div">
-          <input type="text" v-model="firstName" name="fistname" placeholder="First Name" class="input" />
-        </div>
-        <div class="input-div">
-          <input type="text" v-model="lastName" placeholder="Last Name" class="input"/>
-        </div>
+      <div class="input-div">
+        <input
+          type="text"
+          v-model="firstName"
+          name="fistname"
+          placeholder="First Name"
+          class="input"
+        />
+      </div>
+      <div class="input-div">
+        <input
+          type="text"
+          v-model="lastName"
+          placeholder="Last Name"
+          class="input"
+        />
+      </div>
     </div>
     <div class="button-div">
       <button id="btn-next" @click="next()">Next</button>
@@ -19,26 +38,32 @@ export default {
   components: {},
   data() {
     return {
-      firstName:"",
-      lastName:""
+      firstName: "",
+      lastName: "",
+      imageSrc:""
     };
   },
   methods: {
-    next(){
+    next() {
       let input_value = document.querySelectorAll(".input");
       console.log(input_value);
-      
-      for(let i=0;i<=input_value.length-1;i++)
-      {
-          if(input_value[i].value==="")
-          {
-            input_value[i].style.border="2px solid red";
-          }
-          else{
-            input_value[i].style.border="2px solid green";
-          }
+
+      for (let i = 0; i <= input_value.length - 1; i++) {
+        if (input_value[i].value === "") {
+          input_value[i].style.border = "2px solid red";
+        } else {
+          input_value[i].style.border = "2px solid green";
+        }
       }
     },
+    getImage(event)
+    {
+      console.log(event);
+      let image = document.querySelector(".output");
+      image.src = `${URL.createObjectURL(event.target.files[0])}`;
+      // let upload_btn = document.querySelector(".upload-dp");
+      // upload_btn.style.display="none";
+    }
   },
 };
 </script>
@@ -53,11 +78,57 @@ export default {
   flex-direction: column;
   background: whitesmoke;
 }
+.heading {
+  font-size: 20px;
+  font-family: "Playpen sans";
+}
+.dp-div {
+  border: 2px dashed;
+  height: 172px;
+  width: 222px;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.uploaded-image {
+  width: 100%;
+  height: 149px;
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.output{
+  width: 181px;
+  height: 138px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.upload-dp{
+  width: 169px;
+}
+.upload-btn {
+  margin: 2px;
+  height: 32px;
+  border: none;
+  border-radius: 7px;
+  background: #c6c4c4;
+  font-size: 15px;
+  font-family: Playpen Sans;
+  color: black;
+  transition: all 0.2s;
+}
+.upload-btn:active{
+  box-shadow: 1px 10px 22px 4px grey;
+}
 .input-container {
   /*border: 1px solid;*/
   height: 132px;
   width: 281px;
-  margin-top: 100px;
+  margin-top: 7px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -70,8 +141,8 @@ export default {
   justify-content: center;
   align-items: flex-start;
 }
-.error-indicator{
-  border:2px solid red;
+.error-indicator {
+  border: 2px solid red;
 }
 .input {
   border-radius: 7px;
@@ -81,13 +152,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align:center;
+  text-align: center;
   font-size: 16px;
-  font-family: 'Playpen Sans';
+  font-family: "Playpen Sans";
   color: black;
-  transition:all 0.4s;
+  transition: all 0.4s;
 }
-.input:hover{
+.input:hover {
   box-shadow: 1px 10px 22px 4px grey;
 }
 .button-div {
@@ -110,7 +181,7 @@ export default {
   color: black;
   transition: all 0.2s;
 }
-#btn-next:active{
+#btn-next:active {
   box-shadow: 1px 10px 22px 4px grey;
 }
 </style>
