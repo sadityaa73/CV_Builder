@@ -112,6 +112,14 @@ export default {
   align-items: center;
   flex-direction: column;
   background: whitesmoke;
+  animation:rightToLeft 2s;
+}
+@keyframes rightToLeft{
+  0%{ transform: translateX(649px);
+  }
+  100%{
+    transform: translateX(0px)
+  }   
 }
 .heading {
   font-size: 20px;

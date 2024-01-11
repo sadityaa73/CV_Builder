@@ -62,14 +62,5 @@ export default {
 };
 </script>
 <style scoped>
-#form-container {
-  border: 1px solid;
-  min-height: 50vh;
-  min-width: 500px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  background: whitesmoke;
-}
+
 </style>

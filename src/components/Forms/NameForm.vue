@@ -5,9 +5,15 @@
     </div>
     <div class="dp-div">
       <div class="uploaded-image">
-        <img src="../../assets/profileImage.png" alt="image" class="output"/>
+        <img src="../../assets/profileImage.png" alt="image" class="output" />
       </div>
-      <input type="file" accept="image/*" class="upload-dp" placeholder="Upload Image" @change="getImage($event)"/>
+      <input
+        type="file"
+        accept="image/*"
+        class="upload-dp"
+        placeholder="Upload Image"
+        @change="getImage($event)"
+      />
     </div>
     <div class="input-container">
       <div class="input-div">
@@ -35,17 +41,22 @@
 </template>
 <script>
 export default {
-  props:['isNameForm','isContactForm'],
+  props: ["isNameForm", "isContactForm"],
   components: {},
   data() {
     return {
       firstName: "",
       lastName: "",
-      imageSrc:""
+      imageSrc: "",
     };
   },
-  mounted(){
-    console.log("isNameForm",this.isNameForm,"and isContactForm",this.isContactForm);
+  mounted() {
+    console.log(
+      "isNameForm",
+      this.isNameForm,
+      "and isContactForm",
+      this.isContactForm
+    );
   },
   methods: {
     next() {
@@ -59,32 +70,30 @@ export default {
           input_value[i].style.border = "2px solid green";
         }
       }
-      this.$emit('getDetails',this.getDetails());
+      this.$emit("getDetails", this.getDetails());
     },
-    getImage(event)
-    {
+    getImage(event) {
       console.log(event);
       let image = document.querySelector(".output");
-      image.style.width="181px";
-      image.style.height="138px";
+      image.style.width = "181px";
+      image.style.height = "138px";
       image.src = `${URL.createObjectURL(event.target.files[0])}`;
       this.imageSrc = URL.createObjectURL(event.target.files[0]);
       // let upload_btn = document.querySelector(".upload-dp");
       // upload_btn.style.display="none";
     },
-    getDetails()
-    {
+    getDetails() {
       let nameForm = false;
       let contactForm = true;
-      let name={
-        firstName:this.firstName?this.firstName:"null",
-        lastName:this.lastName?this.lastName:"null",
-        ProfileImage:this.imageSrc?this.imageSrc:"null",
-        nameFormStatus:nameForm,
-        contactFormStatus:contactForm?contactForm:null
+      let name = {
+        firstName: this.firstName ? this.firstName : "null",
+        lastName: this.lastName ? this.lastName : "null",
+        ProfileImage: this.imageSrc ? this.imageSrc : "null",
+        nameFormStatus: nameForm,
+        contactFormStatus: contactForm ? contactForm : null,
       };
       return name;
-    }
+    },
   },
 };
 </script>
@@ -98,6 +107,15 @@ export default {
   align-items: center;
   flex-direction: column;
   background: whitesmoke;
+  animation: rightToLeft 2s;
+}
+@keyframes rightToLeft {
+  0% {
+    transform: translateX(649px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
 }
 .heading {
   font-size: 20px;
@@ -121,14 +139,14 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.output{
+.output {
   width: 118px;
   height: 116px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.upload-dp{
+.upload-dp {
   width: 169px;
 }
 .upload-btn {
@@ -142,7 +160,7 @@ export default {
   color: black;
   transition: all 0.2s;
 }
-.upload-btn:active{
+.upload-btn:active {
   box-shadow: 1px 10px 22px 4px grey;
 }
 .input-container {
@@ -179,6 +197,7 @@ export default {
   color: black;
   transition: all 0.4s;
 }
+
 .input:hover {
   box-shadow: 1px 10px 22px 4px grey;
 }

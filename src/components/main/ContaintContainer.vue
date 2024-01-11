@@ -19,5 +19,6 @@ export default {
     justify-content: center;
     align-items:center ;
     min-height: 85vh;
+    overflow: hidden;
 }
 </style>
