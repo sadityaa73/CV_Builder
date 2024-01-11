@@ -31,9 +31,7 @@
           class="education-details"
         />
       </div>
-      <button class="add-btn" @click="add">
-        <span><img src="../../assets/add_icon.png" alt="Add" /></span>Add
-      </button>
+      <button class="add-btn" @click="next">Next</button>
     </div>
   </div>
 </template>
@@ -48,26 +46,27 @@ export default {
     };
   },
   methods: {
-    add()
-    {
+    next() {
       let educationField = document.querySelectorAll(".education-details");
-       for(let i=0;i<=educationField.length-1;i++)
-       {
-        if(educationField[i].value==="")
-        {
-          educationField[i].style.border="2px solid red";
-          return;
+      for (let i = 0; i <= educationField.length - 1; i++) {
+        if (educationField[i].value === "") {
+          educationField[i].style.border = "2px solid red";
+        } else {
+          educationField[i].style.border = "2px solid green";
         }
-        else{
-          educationField[i].style.border="2px solid green";
-        }
-       }
-       let educationDetails={
-            secondary:this.secondary,
-            higherSecondary:this.higherSecondary,
-            graduation:this.graduation
-          }
-       console.log("printing educational details",educationDetails);
+      }
+      this.$emit('getEducationalDetails',this.getEducationalDetails());
+    },
+    getEducationalDetails()
+    {
+      let educationDetails = {
+        secondary: this.secondary,
+        higherSecondary: this.higherSecondary,
+        graduation: this.graduation,
+        qualificationFormStatus:false,
+        skillFormStatus:true
+      };
+      return educationDetails;
     }
   },
 };

@@ -87,6 +87,17 @@ export default {
         this.description="";
         console.log("printing projectDetails",this.projectDetails);
       }
+    },
+    getProjectDetails()
+    {
+      let projectDetails={
+        details:this.projectDetails,
+      }
+      return projectDetails;
+    },
+    next()
+    {
+      this.$emit('getProjectDetails',this.getProjectDetails());
     }
   },
 };

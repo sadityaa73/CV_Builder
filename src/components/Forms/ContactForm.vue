@@ -36,6 +36,7 @@
 </template>
 <script>
 export default {
+  props:['isContactForm','isQualificationForm'],
   components: {},
   data() {
     return {
@@ -58,6 +59,17 @@ export default {
             input_container[i].style.border="2px solid green";
         }
        }
+       this.$emit('getContactDetails',this.getContactDetails());
+    },
+    getContactDetails(){
+        let contactDetails={
+          phone:this.phone?this.phone:"null",
+          email:this.email?this.email:"null",
+          address:this.address?this.address:"null",
+          contactFormStatus:false,
+          qualificationFormStatus:true
+        }
+        return contactDetails;
     }
   },
 };

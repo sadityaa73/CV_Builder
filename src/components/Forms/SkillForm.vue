@@ -41,7 +41,6 @@ export default {
         if(addSkill.value==="")
         {
             addSkill.style.border="2px solid red";
-            return;
         }
         else{
             addSkill.style.border="2px solid green";
@@ -66,7 +65,18 @@ export default {
        if(this.skillList.length >0)
        {this.skillList.length--;}
     },
-    next(){}
+    next(){
+     this.$emit('getSkillDetails',this.getSkillDetails());
+    },
+    getSkillDetails()
+    {
+      let skillDetails={
+        skillList : this.skillList,
+        skillFormStatus:false,
+        projectFormStatus:true
+      }
+      return skillDetails;
+    }
   },
 };
 </script>

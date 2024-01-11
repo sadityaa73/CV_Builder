@@ -5,7 +5,7 @@
     </div>
     <div class="dp-div">
       <div class="uploaded-image">
-        <img src="" alt="image" class="output"/>
+        <img src="../../assets/profileImage.png" alt="image" class="output"/>
       </div>
       <input type="file" accept="image/*" class="upload-dp" placeholder="Upload Image" @change="getImage($event)"/>
     </div>
@@ -35,6 +35,7 @@
 </template>
 <script>
 export default {
+  props:['isNameForm','isContactForm'],
   components: {},
   data() {
     return {
@@ -42,6 +43,9 @@ export default {
       lastName: "",
       imageSrc:""
     };
+  },
+  mounted(){
+    console.log("isNameForm",this.isNameForm,"and isContactForm",this.isContactForm);
   },
   methods: {
     next() {
@@ -55,14 +59,31 @@ export default {
           input_value[i].style.border = "2px solid green";
         }
       }
+      this.$emit('getDetails',this.getDetails());
     },
     getImage(event)
     {
       console.log(event);
       let image = document.querySelector(".output");
+      image.style.width="181px";
+      image.style.height="138px";
       image.src = `${URL.createObjectURL(event.target.files[0])}`;
+      this.imageSrc = URL.createObjectURL(event.target.files[0]);
       // let upload_btn = document.querySelector(".upload-dp");
       // upload_btn.style.display="none";
+    },
+    getDetails()
+    {
+      let nameForm = false;
+      let contactForm = true;
+      let name={
+        firstName:this.firstName?this.firstName:"null",
+        lastName:this.lastName?this.lastName:"null",
+        ProfileImage:this.imageSrc?this.imageSrc:"null",
+        nameFormStatus:nameForm,
+        contactFormStatus:contactForm?contactForm:null
+      };
+      return name;
     }
   },
 };
@@ -101,8 +122,8 @@ export default {
   align-items: center;
 }
 .output{
-  width: 181px;
-  height: 138px;
+  width: 118px;
+  height: 116px;
   display: flex;
   justify-content: center;
   align-items: center;
