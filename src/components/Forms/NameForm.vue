@@ -51,25 +51,23 @@ export default {
     };
   },
   mounted() {
-    console.log(
-      "isNameForm",
-      this.isNameForm,
-      "and isContactForm",
-      this.isContactForm
-    );
   },
   methods: {
     next() {
       let input_value = document.querySelectorAll(".input");
       console.log(input_value);
-
+       let count =0;
       for (let i = 0; i <= input_value.length - 1; i++) {
         if (input_value[i].value === "") {
           input_value[i].style.border = "2px solid red";
+          count++;
         } else {
           input_value[i].style.border = "2px solid green";
+          count--;
         }
       }
+      if(count>-(input_value.length))
+       {return;}
       this.$emit("getDetails", this.getDetails());
     },
     getImage(event) {
@@ -79,8 +77,6 @@ export default {
       image.style.height = "138px";
       image.src = `${URL.createObjectURL(event.target.files[0])}`;
       this.imageSrc = URL.createObjectURL(event.target.files[0]);
-      // let upload_btn = document.querySelector(".upload-dp");
-      // upload_btn.style.display="none";
     },
     getDetails() {
       let nameForm = false;
@@ -107,7 +103,7 @@ export default {
   align-items: center;
   flex-direction: column;
   background: whitesmoke;
-  animation: rightToLeft 2s;
+  animation: rightToLeft 1s;
 }
 @keyframes rightToLeft {
   0% {

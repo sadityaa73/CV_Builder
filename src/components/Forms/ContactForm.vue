@@ -49,16 +49,21 @@ export default {
     next()
     {
        let input_container = document.querySelectorAll(".contact-details");
+       let count =0;
        for(let i=0;i<=input_container.length-1;i++)
        {
         if(input_container[i].value === "")
         {
             input_container[i].style.border="2px solid red";
+            count++;
         }
         else{
             input_container[i].style.border="2px solid green";
+            count--;
         }
        }
+       if(count>-(input_container.length))
+       {return;}
        this.$emit('getContactDetails',this.getContactDetails());
     },
     getContactDetails(){
@@ -84,7 +89,7 @@ export default {
   align-items: center;
   flex-direction: column;
   background: whitesmoke;
-  animation:rightToLeft 2s;
+  animation:rightToLeft 1s;
 }
 @keyframes rightToLeft{
   0%{ transform: translateX(649px);

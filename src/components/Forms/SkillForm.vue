@@ -66,6 +66,8 @@ export default {
        {this.skillList.length--;}
     },
     next(){
+      if(this.skillList.length <=0)
+      return
      this.$emit('getSkillDetails',this.getSkillDetails());
     },
     getSkillDetails()
@@ -90,7 +92,7 @@ export default {
   align-items: center;
   flex-direction: column;
   background: whitesmoke;
-  animation:rightToLeft 2s;
+  animation:rightToLeft 1s;
 }
 @keyframes rightToLeft{
   0%{ transform: translateX(649px);

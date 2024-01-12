@@ -48,13 +48,19 @@ export default {
   methods: {
     next() {
       let educationField = document.querySelectorAll(".education-details");
+      let count=0;
       for (let i = 0; i <= educationField.length - 1; i++) {
         if (educationField[i].value === "") {
           educationField[i].style.border = "2px solid red";
+          count++;
         } else {
           educationField[i].style.border = "2px solid green";
+          count--;
         }
       }
+      console.log("count",count);
+      if(count>-(educationField.length)){
+      return;}
       this.$emit('getEducationalDetails',this.getEducationalDetails());
     },
     getEducationalDetails()
@@ -81,7 +87,7 @@ export default {
   align-items: center;
   flex-direction: column;
   background: whitesmoke;
-  animation:rightToLeft 2s;
+  animation:rightToLeft 1s;
 }
 @keyframes rightToLeft{
   0%{ transform: translateX(649px);

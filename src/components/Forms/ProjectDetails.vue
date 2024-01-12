@@ -95,8 +95,26 @@ export default {
       }
       return projectDetails;
     },
+    close(index){
+      for(let i=0;i<=this.projectDetails.length-1;i++)
+       {
+          if ( i === index)
+          {
+            let k = i;
+             while(k<this.projectDetails.length)
+             {
+                this.projectDetails[k] = this.projectDetails[k+1];
+                k++;
+             }
+          }
+       }
+       if(this.projectDetails.length >0)
+       {this.projectDetails.length--;}
+    },
     next()
     {
+      if(this.projectDetails.length<=0)
+      return;
       this.$emit('getProjectDetails',this.getProjectDetails());
     }
   },
@@ -112,7 +130,7 @@ export default {
   align-items: center;
   flex-direction: column;
   background: whitesmoke;
-  animation:rightToLeft 2s;
+  animation:rightToLeft 1s;
 }
 @keyframes rightToLeft{
   0%{ transform: translateX(649px);
