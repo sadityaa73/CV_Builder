@@ -62,6 +62,12 @@ export default {
       if(projectName.value==="")
       {
         projectName.style.border="2px solid red";
+        projectName.classList.remove('project-details');
+        projectName.classList.add('input-shaking');
+        setTimeout(function(){
+          projectName.classList.remove('input-shaking');
+          projectName.classList.add('project-details');
+        },1000)
       }
       else{
         projectName.style.border="2px solid green";
@@ -69,6 +75,12 @@ export default {
       if(description.value==="")
       {
         description.style.border="2px solid red";
+        description.classList.remove('project-details');
+        description.classList.add('input-shaking');
+        setTimeout(function(){
+          description.classList.remove('input-shaking');
+          description.classList.add('project-details');
+        },1000)
       }
       else{
         description.style.border="2px solid green";
@@ -175,6 +187,39 @@ span {
   font-family: "Playpen Sans";
   color: black;
   transition: all 0.4s;
+}
+.input-shaking {
+  border-radius: 7px;
+  width: 100%;
+  height: 100%;
+  margin: 3px 2px 2px 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 16px;
+  font-family: "Playpen Sans";
+  color: black;
+  transition: all 0.4s;
+  animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 .project-details:hover {
   box-shadow: 1px 10px 22px 4px grey;

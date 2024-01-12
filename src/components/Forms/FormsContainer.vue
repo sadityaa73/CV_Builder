@@ -1,12 +1,12 @@
 <template>
   <div id="form-container">
-    <name-form v-if="isNameForm" @getDetails="nameDeatils" />
+    <name-form v-if="isNameForm" @getDetails="nameDeatils" @formStage="formStage"/>
     <contact-form v-if="isContactForm" @getContactDetails="contactDetails" />
     <qualification-form
       v-if="isQualificationForm"
       @getEducationalDetails="educationDetails"
     />
-    <skill-form v-if="isSkillForm" @getSkillDetails="skillDetails"/>
+    <skill-form v-if="isSkillForm" @getSkillDetails="skillDetails" />
     <project-details v-if="isProjectForm" @getProjectDetails="projectDetails" />
   </div>
 </template>
@@ -45,22 +45,22 @@ export default {
       this.isQualificationForm = event.qualificationFormStatus;
     },
     educationDetails(event) {
-      console.log("printing eductaional details emits in parent component", event);
+      console.log(
+        "printing eductaional details emits in parent component",
+        event
+      );
       this.isQualificationForm = event.qualificationFormStatus;
       this.isSkillForm = event.skillFormStatus;
     },
-    skillDetails(event)
-    {
-      console.log("printing skill details emits in parent component",event);
-      this.isSkillForm=event.skillFormStatus;
-      this.isProjectForm=event.projectFormStatus;
+    skillDetails(event) {
+      console.log("printing skill details emits in parent component", event);
+      this.isSkillForm = event.skillFormStatus;
+      this.isProjectForm = event.projectFormStatus;
     },
-    projectDetails(event){
-      console.log("printing project details emits in parent component",event);
-    }
+    projectDetails(event) {
+      console.log("printing project details emits in parent component", event);
+    },
   },
 };
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>

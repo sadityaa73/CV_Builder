@@ -22,7 +22,7 @@
           v-model="firstName"
           name="fistname"
           placeholder="First Name"
-          class="input"
+          class="input"         
         />
       </div>
       <div class="input-div">
@@ -50,24 +50,26 @@ export default {
       imageSrc: "",
     };
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     next() {
       let input_value = document.querySelectorAll(".input");
-      console.log(input_value);
-       let count =0;
+      let dynamicClass = document.querySelectorAll("input.input"); 
       for (let i = 0; i <= input_value.length - 1; i++) {
         if (input_value[i].value === "") {
           input_value[i].style.border = "2px solid red";
-          count++;
+          dynamicClass[i].classList.remove("input");
+          dynamicClass[i].classList.add("input-shaking");
+          setTimeout(function () {
+            dynamicClass[i].classList.remove("input-shaking");
+            dynamicClass[i].classList.add("input");
+          }, 1000);
         } else {
           input_value[i].style.border = "2px solid green";
-          count--;
         }
-      }
-      if(count>-(input_value.length))
-       {return;}
+      }  
+      if(this.firstName==="" || this.lastName==="")
+       { return;}
       this.$emit("getDetails", this.getDetails());
     },
     getImage(event) {
@@ -192,6 +194,39 @@ export default {
   font-family: "Playpen Sans";
   color: black;
   transition: all 0.4s;
+}
+.input-shaking {
+  border-radius: 7px;
+  width: 100%;
+  height: 83%;
+  margin: 3px 2px 2px 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 16px;
+  font-family: "Playpen Sans";
+  color: black;
+  transition: all 0.4s;
+  animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .input:hover {

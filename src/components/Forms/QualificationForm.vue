@@ -48,18 +48,20 @@ export default {
   methods: {
     next() {
       let educationField = document.querySelectorAll(".education-details");
-      let count=0;
       for (let i = 0; i <= educationField.length - 1; i++) {
         if (educationField[i].value === "") {
           educationField[i].style.border = "2px solid red";
-          count++;
+          educationField[i].classList.remove("education-details");
+          educationField[i].classList.add("input-shaking");
+          setTimeout( function(){
+          educationField[i].classList.remove("input-shaking");
+          educationField[i].classList.add("education-details");
+          },1000);
         } else {
           educationField[i].style.border = "2px solid green";
-          count--;
         }
       }
-      console.log("count",count);
-      if(count>-(educationField.length)){
+      if(this.secondary==="" || this.higherSecondary==="" || this.graduation===""){
       return;}
       this.$emit('getEducationalDetails',this.getEducationalDetails());
     },
@@ -132,6 +134,39 @@ span {
   font-family: "Playpen Sans";
   color: black;
   transition: all 0.4s;
+}
+.input-shaking {
+  border-radius: 7px;
+  width: 100%;
+  height: 83%;
+  margin: 3px 2px 2px 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 16px;
+  font-family: "Playpen Sans";
+  color: black;
+  transition: all 0.4s;
+  animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 .education-details:hover {
   box-shadow: 1px 10px 22px 4px grey;

@@ -49,20 +49,23 @@ export default {
     next()
     {
        let input_container = document.querySelectorAll(".contact-details");
-       let count =0;
        for(let i=0;i<=input_container.length-1;i++)
        {
         if(input_container[i].value === "")
         {
             input_container[i].style.border="2px solid red";
-            count++;
+            input_container[i].classList.remove("contact-details");
+            input_container[i].classList.add("input-shaking");
+            setTimeout(function () {
+              input_container[i].classList.remove("input-shaking");
+              input_container[i].classList.add("contact-details");
+          }, 1000);
         }
         else{
             input_container[i].style.border="2px solid green";
-            count--;
         }
        }
-       if(count>-(input_container.length))
+       if(this.phone==="" || this.email==="" || this.address==="")
        {return;}
        this.$emit('getContactDetails',this.getContactDetails());
     },
@@ -137,6 +140,39 @@ span{
   font-family: "Playpen Sans";
   color: black;
   transition: all 0.4s;
+}
+.input-shaking {
+  border-radius: 7px;
+  width: 100%;
+  height: 83%;
+  margin: 3px 2px 2px 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 16px;
+  font-family: "Playpen Sans";
+  color: black;
+  transition: all 0.4s;
+  animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 .contact-details:hover {
   box-shadow: 1px 10px 22px 4px grey;

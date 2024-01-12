@@ -41,12 +41,18 @@ export default {
         if(addSkill.value==="")
         {
             addSkill.style.border="2px solid red";
+            addSkill.classList.remove('skill-details');
+            addSkill.classList.add('input-shaking');
+            setTimeout( function(){
+              addSkill.classList.remove('input-shaking');
+              addSkill.classList.add('skill-details');
+            },1000);
         }
         else{
             addSkill.style.border="2px solid green";
+            this.skillList.push(addSkill.value);
+            this.skills="";
         }
-        this.skillList.push(addSkill.value);
-        this.skills="";
     },
     close(index)
     {
@@ -67,7 +73,9 @@ export default {
     },
     next(){
       if(this.skillList.length <=0)
-      return
+     {
+      alert("Please Add Atleast One Skill"); 
+      return}
      this.$emit('getSkillDetails',this.getSkillDetails());
     },
     getSkillDetails()
@@ -137,6 +145,39 @@ span {
   font-family: "Playpen Sans";
   color: black;
   transition: all 0.4s;
+}
+.input-shaking {
+  border-radius: 7px;
+  width: 100%;
+  height: 83%;
+  margin: 3px 2px 2px 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 16px;
+  font-family: "Playpen Sans";
+  color: black;
+  transition: all 0.4s;
+  animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 .skill-details:hover {
   box-shadow: 1px 10px 22px 4px grey;
