@@ -8,16 +8,40 @@
   </div>
 </template>
 <script>
+import {mapState} from 'vuex'
 export default{
-    props:['currentFormStatus'],
     components:{},
     data()
     {
-        return{}
+        return{
+        }
+    },
+    computed:{
+      ...mapState(['currentFormStage']),
     },
     mounted(){
     },
-    methods:{}
+    methods:{
+      currentForm()
+      {
+        let formTab = document.querySelectorAll(".component-status");
+        for(let i=0;i<=formTab.length-1;i++)
+        {
+            if(formTab[i].id === this.currentFormStage)
+            {
+              formTab[i].style.backgroundColor="green";
+              formTab[i].style.color="white";
+              formTab[i].style.boxShadow="0px 13px 18px 3px grey"
+
+            }
+            else{
+              formTab[i].style.backgroundColor="#3299f7";
+              formTab[i].style.color="white";
+              formTab[i].style.boxShadow="none";
+            }
+        }
+      }
+    }
 }
 </script>
 <style scoped>
@@ -40,5 +64,6 @@ export default{
     font-size: 15px;
     font-family: "Playpen Sans";
     background: #f5f5f5;
+    transition: 0.5s ease-out;
 }
 </style>

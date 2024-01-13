@@ -1,6 +1,6 @@
 <template>
   <div id="form-container">
-    <name-form v-if="isNameForm" @getDetails="nameDeatils" @formStage="formStage"/>
+    <name-form v-if="isNameForm" @getDetails="nameDeatils" />
     <contact-form v-if="isContactForm" @getContactDetails="contactDetails" />
     <qualification-form
       v-if="isQualificationForm"
@@ -33,16 +33,23 @@ export default {
       isProjectForm: false,
     };
   },
+  created(){
+    this.getFormStatus("name");
+  },
   methods: {
     nameDeatils(event) {
       console.log("print name details emits in parent component", event);
       this.isNameForm = event.nameFormStatus;
       this.isContactForm = event.contactFormStatus;
+      this.getFormStatus("contact");
+      this.$emit('formStatusChanged',"true");
     },
     contactDetails(event) {
       console.log("print contact details emits in parent component", event);
       this.isContactForm = event.contactFormStatus;
       this.isQualificationForm = event.qualificationFormStatus;
+      this.getFormStatus("qualification");
+      this.$emit('formStatusChanged',"true");
     },
     educationDetails(event) {
       console.log(
@@ -51,14 +58,21 @@ export default {
       );
       this.isQualificationForm = event.qualificationFormStatus;
       this.isSkillForm = event.skillFormStatus;
+      this.getFormStatus("skill");
+      this.$emit('formStatusChanged',"true");
     },
     skillDetails(event) {
       console.log("printing skill details emits in parent component", event);
       this.isSkillForm = event.skillFormStatus;
       this.isProjectForm = event.projectFormStatus;
+      this.getFormStatus("project");
+      this.$emit('formStatusChanged',"true");
     },
     projectDetails(event) {
       console.log("printing project details emits in parent component", event);
+    },
+    getFormStatus(formName) {
+      this.$store.dispatch("set_current_form", formName);
     },
   },
 };

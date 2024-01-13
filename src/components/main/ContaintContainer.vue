@@ -1,7 +1,7 @@
 <template>
   <div id="container-div">
-    <process-status/>
-    <forms-container/>
+    <process-status ref="ProcessStatus"/>
+    <forms-container @formStatusChanged="statusChanged"/>
   </div>
 </template>
 <script>
@@ -12,8 +12,16 @@ export default {
   data() {
     return {};
   },
+  mounted(){
+    this.$refs.ProcessStatus.currentForm();
+  },
   methods: {
-   
+   statusChanged()
+    {
+      // this.getRefs();
+      console.log("emit  funciton triggred")
+      this.$refs.ProcessStatus.currentForm();
+    },
   },
 };
 </script>
