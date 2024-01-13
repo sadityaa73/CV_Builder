@@ -105,7 +105,7 @@ export default {
   align-items: center;
   flex-direction: column;
   background: whitesmoke;
-  animation: rightToLeft 1s;
+  animation: rightToLeft 1s ease ;
 }
 @keyframes rightToLeft {
   0% {

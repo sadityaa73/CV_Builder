@@ -97,14 +97,18 @@ export default {
         this.projectDetails.push(workDetails);
         this.projectName="";
         this.description="";
-        console.log("printing projectDetails",this.projectDetails);
       }
     },
     getProjectDetails()
     {
+      let projectForm = false;
+      let pdfView=true;
       let projectDetails={
         details:this.projectDetails,
+        projectFormStatus:projectForm,
+        pdfViewStatus:pdfView
       }
+      console.log("@@@project details",projectDetails);
       return projectDetails;
     },
     close(index){
@@ -127,6 +131,7 @@ export default {
     {
       if(this.projectDetails.length<=0)
       return;
+      
       this.$emit('getProjectDetails',this.getProjectDetails());
     }
   },

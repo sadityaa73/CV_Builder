@@ -7,7 +7,7 @@
         <input
           type="text"
           placeholder="Add Your Skill."
-          v-model="skills"
+          v-model="skill"
           class="skill-details"
         @keyup.enter="add"/>
       </div>
@@ -31,7 +31,7 @@ export default {
   components: {},
   data() {
     return {
-      skills: "",
+      skill: "",
       skillList:[]
     };
   },
@@ -50,8 +50,8 @@ export default {
         }
         else{
             addSkill.style.border="2px solid green";
-            this.skillList.push(addSkill.value);
-            this.skills="";
+            this.skillList.push(this.skill);
+            this.skill="";
         }
     },
     close(index)

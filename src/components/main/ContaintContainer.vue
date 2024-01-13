@@ -10,7 +10,9 @@ import FormsContainer from '../Forms/FormsContainer.vue';
 export default {
   components: {ProcessStatus,FormsContainer},
   data() {
-    return {};
+    return {
+      process:false
+    };
   },
   mounted(){
     this.$refs.ProcessStatus.currentForm();
@@ -18,7 +20,6 @@ export default {
   methods: {
    statusChanged()
     {
-      // this.getRefs();
       console.log("emit  funciton triggred")
       this.$refs.ProcessStatus.currentForm();
     },
