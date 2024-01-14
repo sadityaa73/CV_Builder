@@ -1,78 +1,80 @@
 <template>
   <div id="pdf-containt">
-    <div id="pdf-div">
-      <div class="personal-info-div">
-        <div class="profile-div">
-          <img :src="getFormDetails.profileImage" alt="image" class="cv-dp" />
+    <div class="pdf-container">
+      <div id="pdf-div">
+        <div class="personal-info-div">
+          <div class="profile-div">
+            <img :src="getFormDetails.profileImage" alt="image" class="cv-dp" />
+          </div>
+          <div class="info-div">
+            <div class="identity-info">
+              <span class="identity-icon"
+                ><img src="../../assets/badge.png" alt="" class="icon"
+              /></span>
+              <h5 class="identity">
+                {{ getFormDetails.firstName + getFormDetails.lastName }}
+              </h5>
+            </div>
+            <div class="identity-info">
+              <span class="identity-icon"
+                ><img src="../../assets/phone.png" alt="" class="icon"
+              /></span>
+              <h5 class="identity">{{ getFormDetails.phone }}</h5>
+            </div>
+            <div class="identity-info">
+              <span class="identity-icon"
+                ><img src="../../assets/email.png" alt="" class="icon"
+              /></span>
+              <h5 class="identity">{{ getFormDetails.email }}</h5>
+            </div>
+            <div class="identity-info">
+              <span class="identity-icon"
+                ><img src="../../assets/address.png" alt="" class="icon"
+              /></span>
+              <h5 class="identity">{{ getFormDetails.address }}</h5>
+            </div>
+          </div>
         </div>
-        <div class="info-div">
-          <div class="identity-info">
-            <span class="identity-icon"
-              ><img src="../../assets/badge.png" alt="" class="icon"
-            /></span>
-            <h5 class="identity">
-              {{ getFormDetails.firstName + getFormDetails.lastName }}
-            </h5>
-          </div>
-          <div class="identity-info">
-            <span class="identity-icon"
-              ><img src="../../assets/phone.png" alt="" class="icon"
-            /></span>
-            <h5 class="identity">{{ getFormDetails.phone }}</h5>
-          </div>
-          <div class="identity-info">
-            <span class="identity-icon"
-              ><img src="../../assets/email.png" alt="" class="icon"
-            /></span>
-            <h5 class="identity">{{ getFormDetails.email }}</h5>
-          </div>
-          <div class="identity-info">
-            <span class="identity-icon"
-              ><img src="../../assets/address.png" alt="" class="icon"
-            /></span>
-            <h5 class="identity">{{ getFormDetails.address }}</h5>
-          </div>
-        </div>
-      </div>
-      <div class="public-info-div">
-        <div class="left-div">
-          <div class="qualification">
-            <div class="qualification-info">
-              <span class="school"
-                ><img src="../../assets/education.png" alt="school" /></span
-              >{{ getFormDetails.secondary }}
+        <div class="public-info-div">
+          <div class="left-div">
+            <div class="qualification">
+              <div class="qualification-info">
+                <span class="school"
+                  ><img src="../../assets/education.png" alt="school" /></span
+                >{{ getFormDetails.secondary }}
+              </div>
+              <div class="qualification-info">
+                <span class="school"
+                  ><img src="../../assets/college.png" alt="college" /></span
+                >{{ getFormDetails.higherSecondary }}
+              </div>
+              <div class="qualification-info">
+                <span class="school"
+                  ><img
+                    src="../../assets/graduation.png"
+                    alt="graduation" /></span
+                >{{ getFormDetails.graduation }}
+              </div>
             </div>
-            <div class="qualification-info">
-              <span class="school"
-                ><img src="../../assets/college.png" alt="college" /></span
-              >{{ getFormDetails.higherSecondary }}
-            </div>
-            <div class="qualification-info">
-              <span class="school"
-                ><img
-                  src="../../assets/graduation.png"
-                  alt="graduation" /></span
-              >{{ getFormDetails.graduation }}
+            <div class="skill">
+              <div
+                class="skill-list"
+                v-for="(skill, index) in getFormDetails.skill"
+                :key="index"
+              >
+                <h5>{{ skill }}</h5>
+              </div>
             </div>
           </div>
-          <div class="skill">
+          <div class="right-div">
             <div
-              class="skill-list"
-              v-for="(skill, index) in getFormDetails.skill"
+              class="project-history"
+              v-for="(project, index) in getFormDetails.projectDetails"
               :key="index"
             >
-              <h5>{{ skill }}</h5>
+              <div class="project-heading">{{ project.projectHeading }}</div>
+              <div class="project-description">{{ project.aboutProject }}</div>
             </div>
-          </div>
-        </div>
-        <div class="right-div">
-          <div
-            class="project-history"
-            v-for="(project, index) in getFormDetails.projectDetails"
-            :key="index"
-          >
-            <div class="project-heading">{{ project.projectHeading }}</div>
-            <div class="project-description">{{ project.aboutProject }}</div>
           </div>
         </div>
       </div>
@@ -99,24 +101,28 @@ export default {
   },
   methods: {
     downloadPdf() {
-      html2canvas(document.querySelector("#pdf-div")).then(function (canvas) {
+      let fileName = `${this.getFormDetails.firstName}_${this.getFormDetails.lastName}.pdf`;
+      html2canvas(document.querySelector(".pdf-container"),{allowTaint:true,useCORS:true,scale:3}).then(function (canvas) {
         let base64Image = canvas.toDataURL("image/png");
 
-        let pdf = new jsPDF("p", "px", [782, 1176]);
-        pdf.addImage(base64Image, "PNG", 5,5, 768, 931);
-        pdf.save("cv_builder.pdf");
+        let pdf = new jsPDF();
+        pdf.addImage(base64Image, "PNG",3,3.5 ,205, 290);
+        pdf.save(fileName);
       });
     },
   },
 };
 </script>
 <style scoped>
+.pdf-container{
+  border: 1px solid;
+  padding: 17px;
+}
 #pdf-div {
   display: flex;
   flex-direction: column;
   width: 766px;
   min-height: 88vh;
-  border: 1px solid;
 }
 .profile-div {
   width: 251px;
@@ -217,7 +223,6 @@ export default {
 }
 .project-history {
   border-bottom: 1px solid;
-  min-height: 96px;
   margin: 7px;
   display: flex;
   justify-content: start;
@@ -226,7 +231,7 @@ export default {
 .project-heading {
   border-bottom: 1px solid;
   width: 100%;
-  height: 15%;
+  height: 25px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
