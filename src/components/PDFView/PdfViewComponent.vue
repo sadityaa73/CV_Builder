@@ -1,81 +1,90 @@
 <template>
-  <div id="pdf-div">
-    <div class="personal-info-div">
-      <div class="profile-div">
-        <img :src="getFormDetails.profileImage" alt="image" class="cv-dp" />
+  <div id="pdf-containt">
+    <div id="pdf-div">
+      <div class="personal-info-div">
+        <div class="profile-div">
+          <img :src="getFormDetails.profileImage" alt="image" class="cv-dp" />
+        </div>
+        <div class="info-div">
+          <div class="identity-info">
+            <span class="identity-icon"
+              ><img src="../../assets/badge.png" alt="" class="icon"
+            /></span>
+            <h5 class="identity">
+              {{ getFormDetails.firstName + getFormDetails.lastName }}
+            </h5>
+          </div>
+          <div class="identity-info">
+            <span class="identity-icon"
+              ><img src="../../assets/phone.png" alt="" class="icon"
+            /></span>
+            <h5 class="identity">{{ getFormDetails.phone }}</h5>
+          </div>
+          <div class="identity-info">
+            <span class="identity-icon"
+              ><img src="../../assets/email.png" alt="" class="icon"
+            /></span>
+            <h5 class="identity">{{ getFormDetails.email }}</h5>
+          </div>
+          <div class="identity-info">
+            <span class="identity-icon"
+              ><img src="../../assets/address.png" alt="" class="icon"
+            /></span>
+            <h5 class="identity">{{ getFormDetails.address }}</h5>
+          </div>
+        </div>
       </div>
-      <div class="info-div">
-        <div class="identity-info">
-          <span class="identity-icon"
-            ><img src="../../assets/badge.png" alt="" class="icon"
-          /></span>
-          <h5 class="identity">
-            {{ getFormDetails.firstName + getFormDetails.lastName }}
-          </h5>
+      <div class="public-info-div">
+        <div class="left-div">
+          <div class="qualification">
+            <div class="qualification-info">
+              <span class="school"
+                ><img src="../../assets/education.png" alt="school" /></span
+              >{{ getFormDetails.secondary }}
+            </div>
+            <div class="qualification-info">
+              <span class="school"
+                ><img src="../../assets/college.png" alt="college" /></span
+              >{{ getFormDetails.higherSecondary }}
+            </div>
+            <div class="qualification-info">
+              <span class="school"
+                ><img
+                  src="../../assets/graduation.png"
+                  alt="graduation" /></span
+              >{{ getFormDetails.graduation }}
+            </div>
+          </div>
+          <div class="skill">
+            <div
+              class="skill-list"
+              v-for="(skill, index) in getFormDetails.skill"
+              :key="index"
+            >
+              <h5>{{ skill }}</h5>
+            </div>
+          </div>
         </div>
-        <div class="identity-info">
-          <span class="identity-icon"
-            ><img src="../../assets/phone.png" alt="" class="icon"
-          /></span>
-          <h5 class="identity">{{ getFormDetails.phone }}</h5>
-        </div>
-        <div class="identity-info">
-          <span class="identity-icon"
-            ><img src="../../assets/email.png" alt="" class="icon"
-          /></span>
-          <h5 class="identity">{{ getFormDetails.email }}</h5>
-        </div>
-        <div class="identity-info">
-          <span class="identity-icon"
-            ><img src="../../assets/address.png" alt="" class="icon"
-          /></span>
-          <h5 class="identity">{{ getFormDetails.address }}</h5>
+        <div class="right-div">
+          <div
+            class="project-history"
+            v-for="(project, index) in getFormDetails.projectDetails"
+            :key="index"
+          >
+            <div class="project-heading">{{ project.projectHeading }}</div>
+            <div class="project-description">{{ project.aboutProject }}</div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="public-info-div">
-      <div class="left-div">
-        <div class="qualification">
-          <div class="qualification-info">
-            <span class="school"
-              ><img src="../../assets/education.png" alt="school" /></span
-            >{{ getFormDetails.secondary }}
-          </div>
-          <div class="qualification-info">
-            <span class="school"
-              ><img src="../../assets/college.png" alt="college" /></span
-            >{{ getFormDetails.higherSecondary }}
-          </div>
-          <div class="qualification-info">
-            <span class="school"
-              ><img src="../../assets/graduation.png" alt="graduation" /></span
-            >{{ getFormDetails.graduation }}
-          </div>
-        </div>
-        <div class="skill">
-          <div
-            class="skill-list"
-            v-for="(skill, index) in getFormDetails.skill"
-            :key="index"
-          >
-            <h5>{{ skill }}</h5>
-          </div>
-        </div>
-      </div>
-      <div class="right-div">
-        <div
-          class="project-history"
-          v-for="(project, index) in getFormDetails.projectDetails"
-          :key="index"
-        >
-          <div class="project-heading">{{ project.projectHeading }}</div>
-          <div class="project-description">{{ project.aboutProject }}</div>
-        </div>
-      </div>
+    <div class="btn-div">
+      <button id="download-btn" @click="downloadPdf">Download PDF</button>
     </div>
   </div>
 </template>
 <script>
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 import { mapGetters } from "vuex";
 export default {
   components: {},
@@ -88,7 +97,17 @@ export default {
   created() {
     console.log("getters", this.getFormDetails);
   },
-  methods: {},
+  methods: {
+    downloadPdf() {
+      html2canvas(document.querySelector("#pdf-div")).then(function (canvas) {
+        let base64Image = canvas.toDataURL("image/png");
+
+        let pdf = new jsPDF("p", "px", [782, 1176]);
+        pdf.addImage(base64Image, "PNG", 5,5, 768, 931);
+        pdf.save("cv_builder.pdf");
+      });
+    },
+  },
 };
 </script>
 <style scoped>
@@ -228,5 +247,22 @@ export default {
   width: 510px;
   display: flex;
   flex-direction: column;
+}
+.btn-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#download-btn {
+  width: 182px;
+  height: 53px;
+  margin: 11px;
+  border-radius: 7px;
+  font-size: 16px;
+  font-family: "Playpen Sans";
+}
+#download-btn:active {
+  background: #3299f7;
+  color: white;
 }
 </style>
