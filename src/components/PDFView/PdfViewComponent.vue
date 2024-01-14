@@ -175,7 +175,7 @@ export default {
 .left-div {
   border-right: 1px solid;
   width: 250px;
-  height: 100vh;
+ 
   display: flex;
   flex-direction: column;
 }
