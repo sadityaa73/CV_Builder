@@ -52,7 +52,7 @@ export default {
       }
       this.$store.dispatch('set_name',nameFromDetails);
       this.getFormStatus("contact");
-      this.$emit('formStatusChanged',"true");
+      this.$emit('formStatusChanged',"contact");
     },
     contactDetails(event) {
       console.log("print contact details emits in parent component", event);
@@ -65,7 +65,7 @@ export default {
       }
       this.$store.dispatch('set_contact_details',contact_details);
       this.getFormStatus("qualification");
-      this.$emit('formStatusChanged',"true");
+      this.$emit('formStatusChanged',"qualification");
     },
     educationDetails(event) {
       console.log(
@@ -81,7 +81,7 @@ export default {
       }
       this.$store.dispatch('set_Qualification',education_details);
       this.getFormStatus("skill");
-      this.$emit('formStatusChanged',"true");
+      this.$emit('formStatusChanged',"skill");
     },
     skillDetails(event) {
       console.log("printing skill details emits in parent component", event);
@@ -91,7 +91,7 @@ export default {
       skillList.push(...event.skillList);
       this.$store.dispatch('set_skill',skillList);
       this.getFormStatus("project");
-      this.$emit('formStatusChanged',"true");
+      this.$emit('formStatusChanged',"project");
     },
     projectDetails(event) {
       console.log("printing project details emits in parent component", event);
@@ -100,6 +100,7 @@ export default {
       let projectList=[];
       projectList.push(...event.details);
       this.$store.dispatch('set_project_details',projectList);
+      this.$emit('formStatusChanged',"cv");
     },
     getFormStatus(formName) {
       this.$store.dispatch("set_current_form", formName);

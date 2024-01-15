@@ -1,38 +1,48 @@
 <template>
   <div id="container-div">
-    <process-status ref="ProcessStatus"/>
-    <forms-container @formStatusChanged="statusChanged"/>
+    <process-status ref="ProcessStatus" v-if="processTab"/>
+    <forms-container @formStatusChanged="statusChanged" />
   </div>
 </template>
 <script>
 import ProcessStatus from "../ProcessStatus/ProcressStatus.vue";
-import FormsContainer from '../Forms/FormsContainer.vue';
+import FormsContainer from "../Forms/FormsContainer.vue";
+import { mapState } from "vuex";
 export default {
-  components: {ProcessStatus,FormsContainer},
+  components: { ProcessStatus, FormsContainer },
   data() {
     return {
-      process:false
+      processTab:true
     };
   },
-  mounted(){
+  mounted() {
     this.$refs.ProcessStatus.currentForm();
   },
+  computed: {
+    ...mapState(["currentFormStage"]),
+  },
   methods: {
-   statusChanged()
-    {
-      console.log("emit  funciton triggred")
-      this.$refs.ProcessStatus.currentForm();
+    statusChanged(event) {
+      console.log("emit  funciton triggred",event);
+      if(event!="cv")
+      {
+        this.processTab=true;
+        this.$refs.ProcessStatus.currentForm();
+      }
+      else{
+        this.processTab=false;
+      }
     },
   },
 };
 </script>
 <style scoped>
-#container-div{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items:center ;
-    min-height: 85vh;
-    overflow: hidden;
+#container-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 85vh;
+  overflow: hidden;
 }
 </style>
