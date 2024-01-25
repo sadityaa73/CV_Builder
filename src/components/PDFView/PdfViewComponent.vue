@@ -38,6 +38,7 @@
         <div class="public-info-div">
           <div class="left-div">
             <div class="qualification">
+              <div class="qualification-header"><h5 class="education">Education.</h5></div>
               <div class="qualification-info">
                 <span class="school"
                   ><img src="../../assets/education.png" alt="school" /></span
@@ -57,6 +58,7 @@
               </div>
             </div>
             <div class="skill">
+              <div class="skill-header"><h5 class="skills">Skills.</h5></div>
               <div
                 class="skill-list"
                 v-for="(skill, index) in getFormDetails.skill"
@@ -102,11 +104,15 @@ export default {
   methods: {
     downloadPdf() {
       let fileName = `${this.getFormDetails.firstName}_${this.getFormDetails.lastName}.pdf`;
-      html2canvas(document.querySelector(".pdf-container"),{allowTaint:true,useCORS:true,scale:3}).then(function (canvas) {
+      html2canvas(document.querySelector(".pdf-container"), {
+        allowTaint: true,
+        useCORS: true,
+        scale: 3,
+      }).then(function (canvas) {
         let base64Image = canvas.toDataURL("image/png");
 
         let pdf = new jsPDF();
-        pdf.addImage(base64Image, "PNG",3,3.5 ,205, 290);
+        pdf.addImage(base64Image, "PNG", 3, 3.5, 205, 290);
         pdf.save(fileName);
       });
     },
@@ -114,7 +120,7 @@ export default {
 };
 </script>
 <style scoped>
-.pdf-container{
+.pdf-container {
   border: 1px solid;
   padding: 17px;
 }
@@ -175,7 +181,7 @@ export default {
 .left-div {
   border-right: 1px solid;
   width: 250px;
- 
+
   display: flex;
   flex-direction: column;
 }
@@ -187,6 +193,16 @@ export default {
   display: flex;
   justify-content: start;
   flex-direction: column;
+}
+.qualification-header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size:18px;
+  margin:0px;
+}
+.education {
+  margin:10px;
 }
 .qualification-info {
   width: 100%;
@@ -205,8 +221,19 @@ export default {
   min-height: 150px;
   margin: 7px;
   display: flex;
+  flex-direction: column;
   justify-content: start;
   flex-wrap: wrap;
+}
+.skill-header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size:18px;
+  margin:0px;
+}
+.skills{
+  margin:10px;
 }
 .skill-list {
   border: 1px solid;
