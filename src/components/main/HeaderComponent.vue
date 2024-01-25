@@ -40,10 +40,10 @@ export default {
     color: white;
     font-size: 17px;
     font-family: Playpen Sans;
+    margin: 0px 5px 0px 10px;
 }
 #right-container{
     height: 100%;
-    width: 27%;
     margin-left: 18px;
     display: flex;
     justify-content: space-around;
