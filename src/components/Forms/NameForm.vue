@@ -50,7 +50,9 @@ export default {
       imageSrc: "",
     };
   },
-  mounted() {},
+  mounted() {
+      this.$emit('formName',"name");
+  },
   methods: {
     next() {
       let input_value = document.querySelectorAll(".input");

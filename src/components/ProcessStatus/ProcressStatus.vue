@@ -3,8 +3,8 @@
     <div class="component-status" id="name">Name</div>
     <div class="component-status" id="contact">Contact</div>
     <div class="component-status" id="qualification">Qualification</div>
-    <div class="component-status" id="skill">Skill</div>
-    <div class="component-status" id="project">Project</div>
+    <div class="component-status" id="skill">Skills</div>
+    <div class="component-status" id="project">Projects</div>
   </div>
 </template>
 <script>
@@ -19,11 +19,13 @@ export default{
     computed:{
       ...mapState(['currentFormStage']),
     },
-    mounted(){
+    created(){
+      console.log("mounted is triggerd");
     },
     methods:{
       currentForm()
       {
+        console.log("current form stage",this.currentFormStage);
         let formTab = document.querySelectorAll(".component-status");
         for(let i=0;i<=formTab.length-1;i++)
         {
@@ -32,7 +34,6 @@ export default{
               formTab[i].style.backgroundColor="green";
               formTab[i].style.color="white";
               formTab[i].style.boxShadow="0px 13px 18px 3px grey"
-
             }
             else{
               formTab[i].style.backgroundColor="#3299f7";
@@ -51,7 +52,7 @@ export default{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 54px;
+    margin:  40px 39px 15px;
 }
 .component-status{
     border: 1px solid;

@@ -1,6 +1,6 @@
 <template>
   <div id="form-container">
-    <name-form v-if="isNameForm" @getDetails="nameDeatils" />
+    <name-form v-if="isNameForm" @getDetails="nameDeatils" @formName="firstCall"/>
     <contact-form v-if="isContactForm" @getContactDetails="contactDetails" />
     <qualification-form
       v-if="isQualificationForm"
@@ -37,10 +37,14 @@ export default {
       isPdf:false,
     };
   },
-  created(){
-    this.getFormStatus("name");
+  mounted(){
+    this.$emit('formStatusChanged',"name");
   },
   methods: {
+    firstCall(event)
+    { console.log("@@@triggred",event);
+      this.getFormStatus(event);
+    },
     nameDeatils(event) {
       console.log("print name details emits in parent component", event);
       this.isNameForm = event.nameFormStatus;

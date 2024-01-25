@@ -1,22 +1,23 @@
 <template>
   <div id="container-div">
+    <choose-template @status="formControl" v-if="chooseTemplate"/>
     <process-status ref="ProcessStatus" v-if="processTab"/>
-    <forms-container @formStatusChanged="statusChanged" />
+    <forms-container @formStatusChanged="statusChanged" v-if="formContainer"/>
   </div>
 </template>
 <script>
+import ChooseTemplate from "../Forms/ChooseTemplate.vue"
 import ProcessStatus from "../ProcessStatus/ProcressStatus.vue";
 import FormsContainer from "../Forms/FormsContainer.vue";
 import { mapState } from "vuex";
 export default {
-  components: { ProcessStatus, FormsContainer },
+  components: { ChooseTemplate,ProcessStatus, FormsContainer },
   data() {
     return {
-      processTab:true
+      chooseTemplate:true,
+      processTab:false,
+      formContainer:false
     };
-  },
-  mounted() {
-    this.$refs.ProcessStatus.currentForm();
   },
   computed: {
     ...mapState(["currentFormStage"]),
@@ -33,6 +34,13 @@ export default {
         this.processTab=false;
       }
     },
+    formControl(event)
+    {
+      console.log(event);
+      this.chooseTemplate = event.chooseTemplate;
+      this.formContainer = event.formContainer;
+      this.processTab = event.processStatus;
+    }
   },
 };
 </script>
@@ -40,7 +48,7 @@ export default {
 #container-div {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   min-height: 85vh;
   overflow: hidden;
